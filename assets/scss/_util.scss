@@ -1,0 +1,158 @@
+//img
+.object-fit{
+    object-fit:cover;
+}
+.bg-img-norepeat{
+    background-repeat: no-repeat;
+}
+.bg-img-cover{
+    background-size: cover;
+}
+.bg-img-position-center{
+    background-position: center;
+}
+
+//color
+.color-white{
+    color: white;
+}
+.color-primary{
+    color: $primary;
+}
+.color-primary-light{
+    color: $primary-light;
+}
+.color-primary-dark{
+    color: $primary-dark;
+}
+.color-secondary{
+    color: $secondary;
+}
+.color-secondary-light{
+    color: $secondary-light;
+}
+.bg-primary{
+    background-color: $primary;
+}
+.bg-primary-dark{
+    background-color: $primary-dark;
+}
+.bg-secondary-light{
+    background-color: $secondary-light;
+}
+.border-primary-dark{
+    border: $primary-dark;
+}
+
+
+//spacing
+.w-0{
+    width: 0%;
+}
+.wrap{
+    width: 920px;
+    padding: 100px 0;
+}
+.pl-1{
+    padding-left: 4px;
+}
+.pl-2{
+    padding-left: 8px;
+}
+.pr-1{
+    padding-right: 4px;
+}
+.pr-2{
+    padding-right: 8px;
+}
+.pr-3{
+    padding-right: 12px;
+}
+.pr-4{
+    padding-right: 16px;
+}
+.pr-5{
+    padding-right: 20px;
+}
+.pr-6{
+    padding-right: 24px;
+}
+.pr-7{
+    padding-right: 28px;
+}
+.pr-8{
+    padding-right: 32px;
+}
+
+.mr-1{
+    margin-right: 4px;
+}
+.mr-2{
+    margin-right: 8px;
+}
+.mr-3{
+    margin-right: 12px;
+}
+.mr-4{
+    margin-right: 16px;
+}
+.mr-5{
+    margin-right: 20px;
+}
+.mr-6{
+    margin-right: 24px;
+}
+.mr-7{
+    margin-right: 28px;
+}
+.mr-8{
+    margin-right: 32px;
+}
+.ml-15{
+    margin-left: 80px;
+}
+
+
+//字體大小
+//$font-size-base = 16px
+//$font-size-sm: $font-size-base* .875 = 14px
+.fz-0{
+    font-size: 1rem;
+}
+.fz-1{
+    font-size: 1.25rem;
+}
+.fz-2{
+    font-size: 1.5rem;
+}
+.fz-3{
+    font-size: 2rem;
+}
+
+
+//粗細 
+.fw-b{
+    font-weight: bold;
+}
+.fw-l{
+    font-weight: lighter;
+}
+.fontstyle-italic{
+    font-style: italic;
+}
+
+//border
+.border-bottom-2{
+    border-bottom:2px solid;
+}
+.border-bottom-3{
+    border-bottom:3px solid;
+}
+
+//其他
+.text-center {
+    text-align: center;
+}
+.text-right{
+    text-align: right;
+}
