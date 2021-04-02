@@ -62,12 +62,24 @@ let data = [
 ];
 
 
-// 題目1、將data內的卡片資料依序放到下方
+// Lv1、將data內的卡片資料依序放到下方
 const packages = document.querySelector(".packages");
-let packageList = "";
 
-function init() {
-    data.forEach(function (item, index) {
+function init(location) {
+    let packageList = "";
+    let catchData;
+    catchData = data.filter(function(item){
+        if(location === item.area){
+            return item;
+        };
+        if(!location){
+            return item;
+        };
+    });
+
+     // Lv.1 時，原為 data.forEach(...)，但進入 Lv.3 時，因為只需要顯示"被選擇"的卡片，
+     //因此只需要從 新陣列 catchData 取出已經被篩選後的資料，所以會改成catchData.forEach(...)
+    catchData.forEach(function (item, index) {
         let content = `
     <li class="card shadow-sm col-4 px-0 mb-12">
           <div class="position-relative card-img">
@@ -99,7 +111,7 @@ function init() {
 };
 init();
 
-// 題目、在上方 form 中新增的套票資料，會出現在下方的套票區
+// Lv3、在上方 form 中新增的套票資料，會出現在下方的套票區
 const name = document.querySelector("#packageName");
 const imgUrl = document.querySelector("#packageImg");
 const area = document.querySelector("#packageArea");
@@ -107,9 +119,9 @@ const description = document.querySelector("#packageDescription");
 const group = document.querySelector("#packageGroup");
 const price = document.querySelector("#packagePrice");
 const rate = document.querySelector("#packageRate");
+
 const addBtn = document.querySelector(".addPackage");
 const packageForm = document.querySelector(".packageForm");
-
 
 addBtn.addEventListener("click", addCard);
 function addCard() {
@@ -127,30 +139,18 @@ function addCard() {
     init();
 };
 
-// 題目、篩選 "地區搜尋" 的下拉選單，會影響下方卡片的顯示
-// const searchArea = document.querySelector("#searchArea");
-// searchArea.addEventListener("click", function (e) {
-//     if (e.target.value == "地區搜尋") {
-//         return;
-//     }
-//     let str="";
-//     data.forEach(function(item,index){
-//         console.log(item)
-//     })
-    // else if (e.target.value == "全部地區") {
-    //     textarea.innerHTML = `本次搜尋共 ${totalArea} 筆資料`;
-    // } else if (e.target.value == "台北") {
-    //     textarea.innerHTML = `本次搜尋共 ${Taipai} 筆資料`;
-    // } else if (e.target.value == "台中") {
-    //     textarea.innerHTML = `本次搜尋共 ${Taichung} 筆資料`;
-    // } else if (e.target.value == "高雄") {
-    //     textarea.innerHTML = `本次搜尋共 ${Kaohsiung} 筆資料`;
-    
-// });
+// Lv3、篩選 "地區搜尋" 的下拉選單，會影響下方卡片的顯示
+const searchArea = document.querySelector("#searchArea");
+  //  因為是「選擇」指定地區，所以不能只用click事件
+searchArea.addEventListener("change", function (e) {
+    console.log(searchArea.value);
+    init(e.target.value);
+});
 
 
 
-// 題目3、查詢時會在 .textarea 顯示有幾筆資料
+
+// Lv3、查詢時會在 .textarea 顯示有幾筆資料
 const textarea = document.querySelector(".textarea");
 let Taipai = 0;
 let Taichung = 0;
@@ -168,7 +168,7 @@ data.forEach(function (item, index) {
 });
 console.log(totalArea);
 
-const searchArea = document.querySelector("#searchArea");
+
 searchArea.addEventListener("click", function (e) {
     if (e.target.value == "地區搜尋") {
         return;
@@ -180,5 +180,4 @@ searchArea.addEventListener("click", function (e) {
         textarea.innerHTML = `本次搜尋共 ${Taichung} 筆資料`;
     } else if (e.target.value == "高雄") {
         textarea.innerHTML = `本次搜尋共 ${Kaohsiung} 筆資料`;}
-    
 });
