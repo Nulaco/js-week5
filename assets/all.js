@@ -87,7 +87,7 @@ function init(location) {
             <img src="${item.imgUrl}" class="" alt="...">
           </div>
           <div class="card-body px-6 py-6 position-relative">
-              <div class="color-white bg-primary-dark position-absolute starTag px-2 py-1">${item.rate}</div>
+              <div class="color-white bg-primary-dark position-absolute px-2 py-1">${item.rate}</div>
               <h3 class="card-title fz-2 color-primary-dark border-bottom-2 mb-4">${item.name}</h3>
               <p class="card-text">
                   ${item.description}
@@ -139,15 +139,13 @@ function addCard() {
     init();
 };
 
-// Lv3、篩選 "地區搜尋" 的下拉選單，會影響下方卡片的顯示
+// Lv3、篩選 "地區搜尋" 的下拉選單，會在下方卡片的顯示
 const searchArea = document.querySelector("#searchArea");
   //  因為是「選擇」指定地區，所以不能只用click事件
 searchArea.addEventListener("change", function (e) {
     console.log(searchArea.value);
     init(e.target.value);
 });
-
-
 
 
 // Lv3、查詢時會在 .textarea 顯示有幾筆資料
