@@ -87,7 +87,7 @@ function init(location) {
             <img src="${item.imgUrl}" class="" alt="...">
           </div>
           <div class="card-body px-6 py-6 position-relative">
-              <div class="color-white bg-primary-dark position-absolute px-2 py-1">${item.rate}</div>
+              <div class="color-white bg-primary-dark position-absolute starTag px-2 py-1">${item.rate}</div>
               <h3 class="card-title fz-2 color-primary-dark border-bottom-2 mb-4">${item.name}</h3>
               <p class="card-text">
                   ${item.description}
