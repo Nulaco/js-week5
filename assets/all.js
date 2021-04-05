@@ -62,25 +62,27 @@ let data = [
 ];
 
 
-// Lv1、將data內的卡片資料依序放到下方
+// 選擇器 - 卡片區
 const packages = document.querySelector(".packages");
+// 選擇器 - 新增表單區
+const packageName = document.querySelector("#packageName");
+const imgUrl = document.querySelector("#packageImg");
+const area = document.querySelector("#packageArea");
+const description = document.querySelector("#packageDescription");
+const group = document.querySelector("#packageGroup");
+const price = document.querySelector("#packagePrice");
+const rate = document.querySelector("#packageRate");
+const addBtn = document.querySelector(".addPackage");
+const packageForm = document.querySelector(".packageForm");
+// 選擇器 - 下拉選單
+const searchArea = document.querySelector("#searchArea");
+const textarea = document.querySelector(".textarea");
 
-function init(location) {
+//初始化、新增資套票料
+function init(data) {
     let packageList = "";
-    let catchData;
-    catchData = data.filter(function(item){
-        if(location === item.area){
-            return item;
-        };
-        if(!location){
-            return item;
-        };
-    });
-
-     // Lv.1 時，原為 data.forEach(...)，但進入 Lv.3 時，因為只需要顯示"被選擇"的卡片，
-     //因此只需要從 新陣列 catchData 取出已經被篩選後的資料，所以會改成catchData.forEach(...)
-    catchData.forEach(function (item, index) {
-        let content = `
+    data.forEach(function (item, index) {
+        packageList += `
     <li class="card shadow-sm col-4 px-0 mb-12">
           <div class="position-relative card-img">
             <div class="fz-1 color-white bg-primary position-absolute contryTag px-5 py-2">${item.area}</div>
@@ -103,31 +105,18 @@ function init(location) {
                   <span class="fz-3">$ ${item.price}</span>
               </p>
           </div>
-      </li>
-    `;
-        packageList += content;
+      </li>`;
     });
     packages.innerHTML = packageList;
 };
-init();
+init(data);
 
-// Lv3、在上方 form 中新增的套票資料，會出現在下方的套票區
-const name = document.querySelector("#packageName");
-const imgUrl = document.querySelector("#packageImg");
-const area = document.querySelector("#packageArea");
-const description = document.querySelector("#packageDescription");
-const group = document.querySelector("#packageGroup");
-const price = document.querySelector("#packagePrice");
-const rate = document.querySelector("#packageRate");
-
-const addBtn = document.querySelector(".addPackage");
-const packageForm = document.querySelector(".packageForm");
-
+// Lv3、在上方 form 中新套票資料，會出現在下方的套票區
 addBtn.addEventListener("click", addCard);
 function addCard() {
     data.push({
         id: Date.now(),
-        name: name.value,
+        name: packageName.value,
         imgUrl: imgUrl.value,
         area: area.value,
         description: description.value,
@@ -136,46 +125,99 @@ function addCard() {
         rate: Number(rate.value)
     });
     packageForm.reset(); // 清除所有已輸入 form 內的資料
-    init();
+    init(data);
 };
 
-// Lv3、篩選 "地區搜尋" 的下拉選單，會在下方卡片的顯示
-const searchArea = document.querySelector("#searchArea");
-  //  因為是「選擇」指定地區，所以不能只用click事件
-searchArea.addEventListener("change", function (e) {
-    console.log(searchArea.value);
-    init(e.target.value);
-});
-
-
-// Lv3、查詢時會在 .textarea 顯示有幾筆資料
-const textarea = document.querySelector(".textarea");
-let Taipai = 0;
-let Taichung = 0;
-let Kaohsiung = 0;
-
-data.forEach(function (item, index) {
-    if (item.area == "台北") {
-        Taipai += 1;
-    } else if (item.area == "台中") {
-        Taichung += 1;
-    } else if (item.area == "高雄") {
-        Kaohsiung += 1
+// Lv3、 檢查套票回傳資料(防呆功能)
+// 不得為空白
+// 套票描述 介於0~100自之間
+// 套票星級 介於1~10
+// 寫錯誤者，底線改為紅色 + 跳出警告提示
+packageName.addEventListener("blur", function (e) {  // blur - 離開焦點時進行事件觸發
+    let str = e.target.value;
+    packageName.style = "";
+    if (str == "" || !str.trim()) {  // !str.trim() 不可為空白鍵
+        packageName.style = "border-color:red"; "border-width:4px;";
+        alert("不可為空白")
     };
-    totalArea = Taipai + Taichung + Kaohsiung
 });
-console.log(totalArea);
+imgUrl.addEventListener("blur", function (e) {
+    let str = e.target.value;
+    imgUrl.style = "";
+    if (str == "" || !str.trim()) {
+        imgUrl.style = "border-color:red"; "border-width:4px;";
+        alert("不可為空白")
+    };
+});
+price.addEventListener("blur", function (e) {
+    let str = e.target.value;
+    price.style = "";
+    if (str == "" || !str.trim()) { 
+        price.style = "border-color:red"; "border-width:4px;";
+        alert("不可為空白");
+        price.setAttribute("placeholder", "請輸入數字")
+    } else if (isNaN(str)) {
+        price.style = "border-color:red"; "border-width:4px;";
+        alert("必須為數字");
+        price.setAttribute("placeholder", "請輸入數字")
+    }
+});
+group.addEventListener("blur", function (e) {
+    let str = e.target.value;
+    group.style = "";
+    if (str == "" || !str.trim()) {
+        group.style = "border-color:red"; "border-width:4px;";
+        alert("不可為空白");
+        group.setAttribute("placeholder", "請輸入數字")
+    } else if (isNaN(str)) {
+        group.style = "border-color:red"; "border-width:4px;";
+        alert("必須為數字");
+        group.setAttribute("placeholder", "請輸入數字")
+    }
+});
+rate.addEventListener("blur", function (e) {
+    let str = e.target.value;
+    rate.style = "";
+    if (str == "" || !str.trim()) {
+        rate.style = "border-color:red"; "border-width:4px;";
+        alert("不可為空白");
+        rate.setAttribute("placeholder", "請輸入1~10間的數值")
+    } else if (isNaN(str)) {
+        rate.style = "border-color:red"; "border-width:4px;";
+        alert("必須為數字");
+        rate.setAttribute("placeholder", "請輸入1~10間的數值")
+    } else if (str <= 0 || str > 10) {
+        rate.style = "border-color:red"; "border-width:4px;";
+        alert("請輸入1~10間的數值");
+    }
+});
+description.addEventListener("blur", function (e) {
+    let str = e.target.value;
+    description.style = "";
+    if (str == "" || !str.trim()) {
+        description.style = "border-color:red"; "border-width:4px;";
+        alert("不可為空白");
+        description.setAttribute("placeholder", "輸入字元請介於0~100字之間")
+    } else if (str.length === 0 || str.length > 100) {
+        description.style = "border-color:red"; "border-width:4px;";
+        alert("輸入字元請介於0~100字之間");
+    }
+});
 
 
-searchArea.addEventListener("click", function (e) {
-    if (e.target.value == "地區搜尋") {
-        return;
-    } else if (e.target.value == "全部地區") {
-        textarea.innerHTML = `本次搜尋共 ${totalArea} 筆資料`;
-    } else if (e.target.value == "台北") {
-        textarea.innerHTML = `本次搜尋共 ${Taipai} 筆資料`;
-    } else if (e.target.value == "台中") {
-        textarea.innerHTML = `本次搜尋共 ${Taichung} 筆資料`;
-    } else if (e.target.value == "高雄") {
-        textarea.innerHTML = `本次搜尋共 ${Kaohsiung} 筆資料`;}
+
+// Lv3、查詢時會在 .textarea 顯示有幾筆資料，並篩選下方卡片
+searchArea.addEventListener("change", function (e) {
+    let dataLength = data.length;
+    if (this.value == "全部地區") {
+        init(data);
+        textarea.textContent = `本次搜尋共 ${dataLength} 筆資料`;
+    } else {
+        let catchData;
+        catchData = data.filter((item) => item.area === this.value);
+        init(catchData);
+        console.log(catchData)
+        dataLength = catchData.length;
+        textarea.textContent = `本次搜尋共 ${dataLength} 筆資料`;
+    };
 });
